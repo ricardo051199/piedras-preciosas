@@ -1,26 +1,32 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePiedraDto } from './dto/create-piedra.dto';
 import { UpdatePiedraDto } from './dto/update-piedra.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Piedra } from './entities/piedra.entity';
 
 @Injectable()
 export class PiedrasService {
+  constructor(
+    @InjectRepository(Piedra) private piedraRepository: Repository<Piedra>,
+  ) {}
   create(createPiedraDto: CreatePiedraDto) {
-    return 'This action adds a new piedra';
+    return this.piedraRepository.save(createPiedraDto);
   }
 
   findAll() {
-    return `This action returns all piedras`;
+    return this.piedraRepository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} piedra`;
+    return this.piedraRepository.findOneBy({ id });
   }
 
-  update(id: number, updatePiedraDto: UpdatePiedraDto) {
-    return `This action updates a #${id} piedra`;
+  async update(id: number, updatePiedraDto: UpdatePiedraDto) {
+    await this.piedraRepository.update({ id }, updatePiedraDto);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} piedra`;
+  async remove(id: number) {
+    await this.piedraRepository.delete(id);
   }
 }
