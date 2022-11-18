@@ -14,7 +14,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       username: 'root',
       password: 'password',
       database: 'piedras-preciosas',
-      synchronize: false,
+      synchronize: true,
       autoLoadEntities: true,
     }),
   ],

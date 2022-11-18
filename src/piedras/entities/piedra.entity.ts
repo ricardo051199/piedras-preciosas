@@ -11,7 +11,11 @@ export class Piedra {
   @Column()
   significado: string;
   @Column()
+  unidad_masa: string;
+  @Column()
   masa: number;
+  @Column()
+  moneda: string;
   @Column()
   precio: number;
 }
